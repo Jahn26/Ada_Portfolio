@@ -119,6 +119,43 @@ function Subpage({ content }) {
   return <section className="subpage"><nav className="topbar"><a href="#home" className="micro">CREATIVE ARCHIVE · NO. 01</a><a className="monogram" href="#home">GV</a><a href="#home" className="micro underlined">BACK TO THE ARCHIVE ↗</a></nav><header className="subhead"><p className="hand">A page from my journal</p><h1>{content[0]}</h1><p>{content[1]}</p></header><div className="scrapbook"><div className="paper-photo photo p2"><img src="/hero-image.jpeg" alt="" /><span>AN UNFINISHED COLLECTION</span></div><article className="note"><span className="micro">A NOTE TO SELF</span><h2>{content[1]}</h2><p>{content[2]}</p><a className="back-link" href="#puzzle">← Back to the puzzle</a></article><div className="paper-photo photo p3"><img src="/hero-image.jpeg" alt="" /><span>KEPT WITH CARE</span></div></div></section>;
 }
 
+const aboutPhotos = [
+  { id: 'imag2', alt: 'A fashion look outside a London station', position: '50% 56%' },
+  { id: 'imag5', alt: 'A quiet black-and-white moment in a hotel room', position: '50% 57%' },
+  { id: 'imag3', alt: 'A close-up portrait with a playful outfit', position: '50% 46%' },
+  { id: 'imag8', alt: 'An evening portrait in a warm, book-lined room', position: '52% 42%' },
+  { id: 'imag4', alt: 'A bright editorial look in a studio', position: '58% 44%' },
+  { id: 'imag7', alt: 'A train journey, with red gloves', position: '54% 50%' },
+];
+function AboutPage() {
+  return <main className="about-page">
+    <nav className="topbar"><a href="#home" className="micro">CREATIVE ARCHIVE · NO. 01</a><a className="monogram" href="#home">GV</a><a href="#home" className="micro underlined">BACK TO THE ARCHIVE ↗</a></nav>
+    <div className="about-spread">
+      <section className="about-intro" aria-labelledby="about-greeting">
+        <p className="about-kicker">A PERSONAL INTRODUCTION&nbsp; / &nbsp;LONDON</p>
+        <h1 id="about-greeting"><span>hello!</span></h1>
+        <div className="about-copy">
+          <p>I am a professional in fashion communications and styling with experience in costume design, editorial writing, sales, and cultural research.</p>
+          <p>I have the ability to support high-pressure productions such as ballet performances and national beauty pageants while maintaining aesthetic precision.</p>
+          <p>Founder of a fashion blog analysing the intersection of history, culture, and consumer behaviour.</p>
+          <p>Currently studying at Central Saint Martins, University of the Arts London.</p>
+        </div>
+        <span className="about-index">01 — ABOUT THE MAKER</span>
+      </section>
+      <section className="about-visual" aria-label="Personal photographs">
+        <div className="about-photo-column about-photo-column-a">
+          {aboutPhotos.filter((_, i) => i % 2 === 0).map((photo, i) => <figure className={`about-photo about-photo-a${i + 1}`} key={photo.id}><img src={`/assets/gallery/${photo.id}.jpeg`} alt={photo.alt} loading="lazy" decoding="async" style={{ objectPosition: photo.position }} /></figure>)}
+        </div>
+        <div className="about-photo-column about-photo-column-b">
+          {aboutPhotos.filter((_, i) => i % 2 === 1).map((photo, i) => <figure className={`about-photo about-photo-b${i + 1}`} key={photo.id}><img src={`/assets/gallery/${photo.id}.jpeg`} alt={photo.alt} loading="lazy" decoding="async" style={{ objectPosition: photo.position }} /></figure>)}
+        </div>
+        <h2 className="about-script" aria-label="about myself"><span>about</span><span>myself</span></h2>
+        <p className="about-photo-note">NOTES FROM A LIFE IN PROGRESS&nbsp; ✳</p>
+      </section>
+    </div>
+  </main>;
+}
+
 const galleryImages = [
   { id: 'imag1', alt: 'Reading in a vintage library', position: '50% 78%' },
   { id: 'imag2', alt: 'A fashion look outside a London station', position: '50% 56%' },
@@ -157,6 +194,7 @@ function App() {
   const [hash, setHash] = useState(location.hash);
   useEffect(() => { const update = () => setHash(location.hash); window.addEventListener('hashchange', update); return () => window.removeEventListener('hashchange', update); }, []);
   if (hash === '#pictures') return <GalleryPage />;
+  if (hash === '#about') return <AboutPage />;
   return pageContent[hash] ? <Subpage content={pageContent[hash]} /> : <><Hero /><WordSearch /></>;
 }
 
