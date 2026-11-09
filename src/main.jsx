@@ -3,11 +3,11 @@ import { createRoot } from 'react-dom/client';
 import '../style.css';
 
 const words = [
-  { key: 'ABOUTME', label: 'ABOUT ME', path: '#about', start: [1, 1], delta: [0, 1] },
-  { key: 'ARTICLES', label: 'ARTICLES', path: '#articles', start: [2, 1], delta: [1, 0] },
-  { key: 'PICTURES', label: 'PICTURES', path: '#pictures', start: [0, 10], delta: [1, -1] },
+  { key: 'ABOUTME', label: 'ABOUT ME', path: '#about', start: [6, 0], delta: [0, 1] },
+  { key: 'ARTICLES', label: 'ARTICLES', path: '#articles', start: [0, 7], delta: [1, 0] },
+  { key: 'PICTURES', label: 'PICTURES', path: '#pictures', start: [0, 0], delta: [1, 1] },
 ];
-const size = 12;
+const size = 8;
 function makeGrid() {
   const rows = Array.from({ length: size }, () => Array(size).fill(''));
   words.forEach(({ key, start: [r, c], delta: [dr, dc] }) => [...key].forEach((letter, i) => { rows[r + dr * i][c + dc * i] = letter; }));
@@ -81,12 +81,21 @@ function WordSearch() {
     const x2 = b.left - board.left + b.width / 2, y2 = b.top - board.top + b.height / 2;
     const dx = x2 - x1, dy = y2 - y1, length = Math.hypot(dx, dy), cx = (x1 + x2) / 2, cy = (y1 + y2) / 2;
     const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-    return <ellipse key={index} className="ink-circle" cx={cx} cy={cy} rx={length / 2 + a.width * .55} ry={a.width * .38} transform={`rotate(${angle} ${cx} ${cy})`} />;
+    const rx = length / 2 + a.width * .58, ry = a.width * .34;
+    const outlineD = `M ${-rx} 0 C ${-rx * .98} ${-ry * .72}, ${-rx * .62} ${-ry * 1.12}, ${-rx * .08} ${-ry * .96} C ${rx * .58} ${-ry * 1.14}, ${rx * 1.04} ${-ry * .62}, ${rx} ${ry * .04} C ${rx * 1.08} ${ry * .72}, ${rx * .56} ${ry * 1.12}, ${rx * .02} ${ry * .98} C ${-rx * .58} ${ry * 1.12}, ${-rx * 1.04} ${ry * .6}, ${-rx} 0`;
+    const transform = `translate(${cx} ${cy}) rotate(${angle})`;
+    return <g key={index}>
+      <path className="ink-circle" pathLength="1000" d={outlineD} transform={transform} />
+      <path className="ink-circle ink-circle-echo" pathLength="1000" d={outlineD} transform={`translate(1 -1) ${transform}`} />
+    </g>;
   };
 
   return <section className="puzzle-section" id="puzzle">
-    <div className="puzzle-head"><p className="hand">Go on, have a little play</p><h2>A little puzzle<br />about me.</h2><p className="puzzle-intro">Drag across the letters to find three hidden corners of my world. Words can run forwards, backwards, down, or diagonally.</p></div>
-    <div className="puzzle-layout"><div className="board-wrap"><div className="progress"><span>{found.length}</span> OF 3 WORDS FOUND <button onClick={reset} className="text-button">Reset puzzle</button></div>
+    <div className="contents-rail" aria-hidden="true"><span>CONTENTS</span><i>✦</i></div>
+    <div className="puzzle-page">
+    <div className="puzzle-head"><p className="hand">A little play for curious minds</p><h2>Find your way<br />through the letters.</h2><p className="puzzle-intro">Drag across the grid to find three little corners of my world. Look across, down, or diagonally.</p><div className="progress"><span>{found.length}</span> / 3 WORDS FOUND <button onClick={reset} className="text-button">Start again ↺</button></div></div>
+    <svg className="margin-arrows" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true"><path d="M390 18 C340 8 320 20 304 49 M304 49 l13 -5 M304 49 l8 12"/><text x="350" y="13">graphic design, collected things</text><path d="M735 515 C780 495 805 500 830 527 M830 527 l-14 -2 M830 527 l-5 -13"/><text x="705" y="540">little moments, kept close</text></svg>
+    <div className="puzzle-layout"><div className="board-wrap">
       <div className="board-frame"><div className="board" ref={boardRef} role="grid" aria-label="Word search puzzle">
         {grid.flatMap((row, r) => row.map((letter, c) => {
           const point = [r, c], k = keyOf(point), isFound = circles.some(path => path.some(cell => keyOf(cell) === k));
@@ -97,7 +106,8 @@ function WordSearch() {
         }))}
         <svg className="circles" aria-hidden="true" viewBox={`0 0 ${boardRef.current?.clientWidth || 1} ${boardRef.current?.clientHeight || 1}`}>{circles.map(circleMarkup)}</svg>
       </div></div>
-    </div><aside className="word-card"><h3>Find the words <span>✦ <i>no peeking</i> ✦</span></h3><p>Find all three hidden words. Look across, down or diagonally.</p><ul>{words.map((word, i) => <li key={word.key}><span className="number">0{i + 1}</span><button className={`word-link${foundSet.has(word.key) ? ' done' : ''}`} disabled={!foundSet.has(word.key)} onClick={() => navigate(word.key)}><span>{word.label}</span><small>{foundSet.has(word.key) ? 'FOUND · OPEN' : 'HIDDEN'}</small></button></li>)}</ul><p className="success" aria-live="polite">{message}</p></aside></div>
+    </div><aside className="word-card"><p className="annotation-title">Little things to find <span>✦</span></p><p className="annotation-copy">A few notes from my world. Find them in the grid, then follow the link.</p><ul>{words.map((word, i) => <li key={word.key}><span className="number">0{i + 1}</span><button className={`word-link${foundSet.has(word.key) ? ' done' : ''}`} disabled={!foundSet.has(word.key)} onClick={() => navigate(word.key)}><span>{word.label}</span><small>{foundSet.has(word.key) ? 'FOUND ↗' : 'HIDDEN'}</small></button><em>{['a little about me', 'stories & other thoughts', 'moments kept in frames'][i]}</em></li>)}</ul><p className="success" aria-live="polite">{message}</p></aside></div>
+    </div>
   </section>;
 }
 
