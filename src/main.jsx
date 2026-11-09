@@ -114,14 +114,49 @@ function WordSearch() {
 const pageContent = {
   '#about': ['A little about me', 'Curious by nature. Collector of little details.', 'A scrapbook of the places, people, and ideas that have made their way into my work. This space is waiting for a few stories from me.'],
   '#articles': ['Notes & articles', 'Thoughts, gathered along the way.', 'A small shelf of writing about making things, noticing things, and everything in between. New notes will find their way here soon.'],
-  '#pictures': ['Pictures, lately', 'Small frames from a curious life.', 'A visual diary in progress. Photographs and little moments will live here when they are ready to be shared.'],
 };
 function Subpage({ content }) {
   return <section className="subpage"><nav className="topbar"><a href="#home" className="micro">CREATIVE ARCHIVE · NO. 01</a><a className="monogram" href="#home">GV</a><a href="#home" className="micro underlined">BACK TO THE ARCHIVE ↗</a></nav><header className="subhead"><p className="hand">A page from my journal</p><h1>{content[0]}</h1><p>{content[1]}</p></header><div className="scrapbook"><div className="paper-photo photo p2"><img src="/hero-image.jpeg" alt="" /><span>AN UNFINISHED COLLECTION</span></div><article className="note"><span className="micro">A NOTE TO SELF</span><h2>{content[1]}</h2><p>{content[2]}</p><a className="back-link" href="#puzzle">← Back to the puzzle</a></article><div className="paper-photo photo p3"><img src="/hero-image.jpeg" alt="" /><span>KEPT WITH CARE</span></div></div></section>;
 }
+
+const galleryImages = [
+  { id: 'imag1', alt: 'Reading in a vintage library', position: '50% 78%' },
+  { id: 'imag2', alt: 'A fashion look outside a London station', position: '50% 56%' },
+  { id: 'imag3', alt: 'A close-up portrait with a playful outfit', position: '50% 46%' },
+  { id: 'imag4', alt: 'A bright editorial look in a studio', position: '58% 44%' },
+  { id: 'imag5', alt: 'A quiet black-and-white moment in a hotel room', position: '50% 57%' },
+  { id: 'imag6', alt: 'A bathtub and a book', position: '51% 58%' },
+  { id: 'imag7', alt: 'A train journey, with red gloves', position: '54% 50%' },
+  { id: 'imag8', alt: 'An evening portrait in a warm, book-lined room', position: '52% 42%' },
+];
+function GalleryPage() {
+  const [active, setActive] = useState(null);
+  useEffect(() => {
+    if (!active) return undefined;
+    const onKeyDown = event => { if (event.key === 'Escape') setActive(null); };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [active]);
+  return <main className="gallery-page">
+    <nav className="topbar"><a href="#home" className="micro">CREATIVE ARCHIVE · NO. 01</a><a className="monogram" href="#home">GV</a><a href="#home" className="micro underlined">BACK TO THE ARCHIVE ↗</a></nav>
+    <header className="gallery-heading"><p className="hand">Small frames, kept close</p><h1>Pictures, lately</h1><div className="gallery-deck"><span>AN IMAGE DIARY · 01—08</span><p>Little scenes from here and there,<br />gathered along the way.</p></div></header>
+    <div className="gallery-collage" aria-label="Eight photographs in an editorial collage">
+      {galleryImages.map((image, index) => <button className={`gallery-tile gallery-tile-${index + 1}`} type="button" key={image.id} onClick={() => setActive(image)} aria-label={`Enlarge photo: ${image.alt}`}>
+        <img src={`/assets/gallery/${image.id}.jpeg`} alt={image.alt} loading="lazy" decoding="async" style={{ objectPosition: image.position }} />
+      </button>)}
+    </div>
+    <div className="gallery-foot"><span>GV · PERSONAL ARCHIVE</span><span>MADE OF MOMENTS, NOT MUCH ELSE</span></div>
+    {active && <div className="gallery-lightbox" role="dialog" aria-modal="true" aria-label={active.alt} onClick={() => setActive(null)}>
+      <button className="lightbox-close" type="button" onClick={() => setActive(null)} aria-label="Close enlarged photo">×</button>
+      <img src={`/assets/gallery/${active.id}.jpeg`} alt={active.alt} onClick={event => event.stopPropagation()} />
+      <p>{active.alt}</p>
+    </div>}
+  </main>;
+}
 function App() {
   const [hash, setHash] = useState(location.hash);
   useEffect(() => { const update = () => setHash(location.hash); window.addEventListener('hashchange', update); return () => window.removeEventListener('hashchange', update); }, []);
+  if (hash === '#pictures') return <GalleryPage />;
   return pageContent[hash] ? <Subpage content={pageContent[hash]} /> : <><Hero /><WordSearch /></>;
 }
 
