@@ -119,6 +119,103 @@ function Subpage({ content }) {
   return <section className="subpage"><nav className="topbar"><a href="#home" className="micro">CREATIVE ARCHIVE · NO. 01</a><a className="monogram" href="#home">GV</a><a href="#home" className="micro underlined">BACK TO THE ARCHIVE ↗</a></nav><header className="subhead"><p className="hand">A page from my journal</p><h1>{content[0]}</h1><p>{content[1]}</p></header><div className="scrapbook"><div className="paper-photo photo p2"><img src="/hero-image.jpeg" alt="" /><span>AN UNFINISHED COLLECTION</span></div><article className="note"><span className="micro">A NOTE TO SELF</span><h2>{content[1]}</h2><p>{content[2]}</p><a className="back-link" href="#puzzle">← Back to the puzzle</a></article><div className="paper-photo photo p3"><img src="/hero-image.jpeg" alt="" /><span>KEPT WITH CARE</span></div></div></section>;
 }
 
+const journalArticles = [
+  {
+    id: 'reset', title: 'An apple a day', subtitle: 'White coat syndrome, remade for the runway',
+    description: 'At The Reset Show, Maria Medina turns the anxieties of a hospital into a striking study in silhouette, memory and material.',
+    category: 'FASHION · THE RESET SHOW', author: 'Ada Ashish', cover: '/assets/articles/reset-figure-000.jpg',
+    pdf: '/assets/articles/reset-show.pdf', coverAlt: 'A model wearing Maria Medina’s white sculptural look between hospital curtains',
+    sections: [
+      { heading: '', paragraphs: [
+        'White coat syndrome (noun): blood pressure values higher than normal when measured in a medical environment, but within the normal range during daily life. The anxiety of being around doctors in white coats can make your blood pressure rise. (Celis H, Fagard RH, 2004.)',
+        'Welcome to The House, to the house of The Reset Show.',
+        'The moment one walks through the glass door, past the contemporary dancers, ping pong table and the security at the gateway, an alternate dimension engulfs them. And if it’s December, “a parade of extraordinary clothes... showering scraps of paper, silver foil, a flurry of feathers, a cascade of glitter, like snow onto The Street below, it’s time for Christmas” (Blackman, Davies 2019, p. 224).',
+        '“Central Saint Martins is a mini cosmos of its own.” (Coraca 2025)',
+      ]},
+      { heading: 'A house of ideas', paragraphs: [
+        'Central to Central Saint Martins’ ethos is collaboration, sustainability, and most importantly thought-provoking art. David Kappo, a tutor for Fashion Design, aims to get students to “fully explore what they are about without any creative constraints”.',
+        'Amongst this creative landscape lies the annual tradition of The Reset Show (formerly known as the White Show), where some of the world’s best and brightest designers are challenged on their ability to think, design, research, and construct. First-year BA design students are given three words which dictate the theme of their garment and are offered around two metres of three white fabrics per student. This year, the lineup consisted of recycled tablecloth and Ultrasuede in two different weights, to represent: artefact, displacement, and 24 hours. This long-standing tradition is fundamental to CSM’s ecological integrity due to its role in shaping fashion students. Quite early on in their academic journey, they are part of a project that spans over the entirety of BA Fashion, with each pathway responsible for a role that brings The Reset Show together.',
+        'Maria’s look, titled An apple a day, captures white coat syndrome through an elaborate silhouette—reflective of a hospital room—but also smaller details such as surgical stitches, pleating, and hospital gown knotting. “The fear is not just of doctors but the overall hospital environment, the lighting, nurses, fabrics etc.” Maria cultivated this particular theme by looking at medical tools in cognisance with the word ‘artefact’. She has incorporated contemporary and historical elements of medicine: the curtains mimic hospital bed dividers, and the shoulder details are inspired by the 17th-century plague masks (figure 1).',
+      ]},
+      { heading: 'Learning through exchange', paragraphs: [
+        'Although the students have a preconceived notion of what they might do, the tutorials and interaction with the tutors “develop, change, evolve into something they couldn’t imagine would happen. That’s why they are here, this interaction and involvement,” (Kappo 2025). Saint Martins, with collaboration at its core, creates this space where creatives of different disciplines can learn the importance of each other. Sarah Gresty (2025) states that CSM differs from other design colleges due to this exposure students have early on. This is an important skill which not only teaches students the importance of collaboration but also the various elements that can be taken into consideration when designing.',
+        'For instance, Maria puts a great emphasis on her experience in BA Textile, shaping her approach to design. “...kind of like an instinct for me to focus on surface design.” She had a material-led approach when designing her look; for example, the lapel for the coat is shaped using the ‘embossed fusion’ technique she discovered as a textile student, reminiscent of heat-press suction. She layered a piece of Ultrasuede in the shape of the lapel under the shirt to form the shape on the outer layer. This helped her allude to a white coat without axiomatically creating one.',
+        'Furthermore, the students are expected to not only demonstrate skill but also a narrative. “We want them to be able to react to different things around immigration, consumerism, ‘Black Lives Matter’, heritage…” (Gresty 2024). Maria incorporated her own Colombian heritage through her choice of references such as Doris Salcedo, a Colombian artist whose Untitled artwork (figure 2) inspired the front layering of the final garment. “My work is a reflection of my personal and cultural heritage. My parents are doctors, and this project is heavily inspired by growing up around the medical field,” says Maria.',
+      ]},
+      { heading: 'A look with a story', paragraphs: [
+        'An apple a day is an interesting look at what the tutors want from their students. As David Kappo stated, “hard work and honesty is what I expect from the students”. Maria demonstrates an excellent level of skill which was validated by her tutors during the crits, but also incorporates elements of who she is. It is not just a project but a representation of what the college nudges its students to do. The Reset Show is a result of Central Saint Martins’ unprecedented environment. One could even say, CSM is the haus of fostering the creatives of tomorrow.',
+      ]},
+    ],
+    figures: [
+      { afterSection: 0, src: '/assets/articles/reset-figure-001.jpg', alt: 'A second view of the white sculptural look on the runway', caption: 'Maria Medina’s look, An apple a day, at The Reset Show.' },
+      { afterSection: 1, src: '/assets/articles/reset-figure-002.jpg', alt: 'Historical illustration of a plague doctor in protective clothing', caption: 'Figure 1. A 17th-century plague doctor. Encyclopædia Britannica ImageQuest.' },
+      { afterSection: 2, src: '/assets/articles/reset-figure-003.jpg', alt: 'Close detail of layered cotton garments', caption: 'Figure 2. Doris Salcedo, Untitled (detail), 1989–90. Cotton shirts, steel and plaster. Museum of Contemporary Art Chicago.' },
+    ],
+    bibliography: [
+      'Blackman C. and Davies H. “The White Show”, in Fashion Central Saint Martins. Thames and Hudson, 2019, p. 224.',
+      'Celis H. and Fagard R. H. “White-coat hypertension: a clinical review.” European Journal of Internal Medicine, 2004.',
+      'Coraca I. “Reset Show.” Interview by Ada Ashish, Central Saint Martins, 1 December 2025.',
+      'Gresty S. “The Reset Show.” Interview by Ada Ashish, 4 December 2025.',
+      'Gresty S. “White Show: The gateway to success at Central Saint Martins University of the Arts London.” Interview, Ultrasuede Official, 2024.',
+      'Kappo D. “The Reset Show.” Interview by Ada Ashish, Central Saint Martins, 2025.',
+      'Medina M. “The Reset Show.” Interview by Ada Ashish, 2025.',
+      'Cambridge Dictionary, “Haus”; Urban Dictionary, “Haus”. Accessed 11 December 2025.',
+    ],
+  },
+  {
+    id: 'apophenia', title: '‘Apophenia’: The Art of the Psychological State',
+    subtitle: 'Leah Clements’ first major solo UK exhibition, an investigation into finding meaning in the experience of disability',
+    description: 'A review of an exhibition where film, sound and installation consider disability, healing, spirituality and the stories we make from experience.',
+    category: 'ARTS · EXHIBITION REVIEW', author: 'Ada Ashish', cover: null,
+    pdf: '/assets/articles/apophenia.pdf',
+    sections: [
+      { heading: '', paragraphs: [
+        'Apophenia by Leah Clements is the newest addition to her catalogue raisonné of exploring disability, healing and spirituality through art. Displayed in the Peer Gallery, the exhibition consists of audio-visuals, installations and film, all with the intention of deconstructing the concept of apophenia.',
+        'Apophenia focuses on Jenn Ashworth’s experiences with religion and childbirth, highlighted in her memoir Notes made while falling. In proper Clements fashion, she explores “spiritual suicide” and healing through the concepts of apopheny and epiphany as antonyms. The film was almost an elegy to a version of her life and an encomium to the progress after. What really stood out was the music; it played a prominent role in the narrative. There was something peculiar about the audio choice: it didn’t feel like it was recorded for the purpose of the film, but instead gathered and puzzled together to match the cohesive body of work.',
+      ]},
+      { heading: 'Entering a sacred space', paragraphs: [
+        'There’s an overarching theme of religion, such as the mention of “Eternal progression” and the quote “What happens when you get the holy grail?”, which can be found not only in the film itself, but also in the bottles of holy water atop the doorway to the screening. The positioning feels like you’re entering sacred ground—cleansed of negativity in order to enter the sanctified space.',
+        'The glass window at the entrance is decorated with symbols alluding to moments in the film which are properly visible only when the sun seeps through the window. The visual imagery of the sun beaming down, illuminating the symbols, feels adjacent to angels descending from heaven, the golden light of heaven; it’s very godly.',
+      ]},
+      { heading: 'The viewer becomes part of the work', paragraphs: [
+        'The first and last thing that caught my eye were the two chairs placed in the centre, paired with an audio explanation of the gallery. One faces into the gallery, creating an almost claustrophobic feel, while the other faces out a large window, leaving you vulnerable to spectators and encouraging people to isolate from the comfort that passive spectatorship brings.',
+        'The seating was described as “common in wellness clinics, spaces used for psychoanalysis, or the hospital sick bed” by Clements. When I asked what people felt like engaging with the art, responses included: “Public setting with the chair, was weird but interesting for me.” “When you sit down, you become a part of the sculpture.”',
+      ]},
+    ],
+    location: 'Peer Gallery, 97–99 Hoxton Street, London N1 6QL.',
+  },
+];
+function ArticlesPage() {
+  const featured = journalArticles[0], secondary = journalArticles[1];
+  return <main className="journal-page">
+    <nav className="topbar"><a href="#home" className="micro">CREATIVE ARCHIVE · NO. 01</a><a className="monogram" href="#home">GV</a><a href="#home" className="micro underlined">BACK TO THE ARCHIVE ↗</a></nav>
+    <header className="journal-masthead"><p className="hand">A page from my journal</p><h1>Notes <span>&</span> articles</h1><p className="journal-deck">Thoughts, gathered along the way.</p></header>
+    <section className="journal-layout" aria-label="Journal articles">
+      <a className="journal-side journal-side-top" href={`#article-${secondary.id}`}>
+        <div className="journal-poster journal-poster-small" aria-hidden="true"><span>APOPHENIA</span><i>✳</i><small>LEAH CLEMENTS</small></div>
+        <span className="journal-label">{secondary.category}</span><h2>{secondary.title}</h2><p>{secondary.description}</p><span className="journal-meta">BY {secondary.author.toUpperCase()}</span>
+      </a>
+      <a className="journal-feature" href={`#article-${featured.id}`}>
+        <div className="journal-feature-image"><img src={featured.cover} alt={featured.coverAlt} /><span>{featured.category}</span></div>
+        <div className="journal-feature-copy"><span className="journal-label">FEATURED STORY&nbsp; / &nbsp;{featured.author.toUpperCase()}</span><h2>{featured.title}</h2><p>{featured.description}</p><span className="journal-meta">{featured.subtitle}</span></div>
+      </a>
+      <a className="journal-side journal-side-bottom" href={`#article-${featured.id}`}><img src="/assets/articles/reset-figure-001.jpg" alt="Maria Medina’s sculptural white look at The Reset Show" /><span className="journal-label">DETAIL&nbsp; / &nbsp;THE RESET SHOW</span><h2>A silhouette with a story</h2><p>{featured.subtitle}</p><span className="journal-meta">READ THE FEATURE ↗</span></a>
+    </section>
+    <section className="journal-popular"><div className="journal-section-title"><h2>Articles & reviews</h2><span>{journalArticles.length} PIECES</span></div><div className="popular-grid">{journalArticles.map(article => <a className="popular-entry" href={`#article-${article.id}`} key={article.id}>{article.cover ? <img src={article.cover} alt="" /> : <span className="popular-monogram">A.</span>}<span><b>{article.title}</b><small>{article.category}&nbsp; · &nbsp;{article.author}</small></span><i>↗</i></a>)}</div></section>
+    <footer className="journal-footer"><span>GV · PERSONAL ARCHIVE</span><span>NOTES, KEPT WITH CARE</span></footer>
+  </main>;
+}
+function ArticleDetail({ article }) {
+  return <main className="journal-page article-page">
+    <nav className="topbar"><a href="#home" className="micro">CREATIVE ARCHIVE · NO. 01</a><a className="monogram" href="#home">GV</a><a href="#articles" className="micro underlined">← ALL NOTES</a></nav>
+    <article className="reading-page"><header className="reading-heading"><p className="journal-label">{article.category}&nbsp; / &nbsp;THE CREATIVE ARCHIVE</p><h1>{article.title}</h1><p className="reading-deck">{article.subtitle}</p><div className="reading-meta"><span>BY {article.author.toUpperCase()}</span><a href={article.pdf} target="_blank" rel="noreferrer">OPEN ORIGINAL PDF ↗</a></div></header>
+      {article.cover ? <figure className="reading-hero"><img src={article.cover} alt={article.coverAlt} /><figcaption>{article.title.toUpperCase()}&nbsp; / &nbsp;THE RESET SHOW</figcaption></figure> : <div className="journal-poster reading-poster" role="img" aria-label="Apophenia, an exhibition review about art, disability and spirituality"><span>APOPHENIA</span><i>✳</i><small>THE ART OF THE<br />PSYCHOLOGICAL STATE</small></div>}
+      <div className="reading-copy"><p className="reading-lead">{article.description}</p>{article.sections.map((section, index) => <section className="reading-section" key={`${article.id}-${index}`}>{section.heading && <h2>{section.heading}</h2>}{section.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}{article.figures?.filter(figure => figure.afterSection === index).map(figure => <figure className="reading-inline-figure" key={figure.src}><img src={figure.src} alt={figure.alt} /><figcaption>{figure.caption}</figcaption></figure>)}</section>)}{article.location && <p className="reading-location">{article.location}</p>}{article.bibliography && <details className="reading-bibliography"><summary>References & image credits</summary><ol>{article.bibliography.map((reference, index) => <li key={index}>{reference}</li>)}</ol></details>}</div>
+      <a className="reading-back" href="#articles">← Return to notes & articles</a>
+    </article>
+  </main>;
+}
+
 const aboutPhotos = [
   { id: 'imag2', alt: 'A fashion look outside a London station', position: '50% 56%' },
   { id: 'imag5', alt: 'A quiet black-and-white moment in a hotel room', position: '50% 57%' },
@@ -195,6 +292,9 @@ function App() {
   useEffect(() => { const update = () => setHash(location.hash); window.addEventListener('hashchange', update); return () => window.removeEventListener('hashchange', update); }, []);
   if (hash === '#pictures') return <GalleryPage />;
   if (hash === '#about') return <AboutPage />;
+  if (hash === '#articles') return <ArticlesPage />;
+  if (hash === '#article' || hash === '#article-reset') return <ArticleDetail article={journalArticles[0]} />;
+  if (hash === '#article-apophenia') return <ArticleDetail article={journalArticles[1]} />;
   return pageContent[hash] ? <Subpage content={pageContent[hash]} /> : <><Hero /><WordSearch /></>;
 }
 
