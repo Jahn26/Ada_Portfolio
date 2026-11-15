@@ -6,6 +6,7 @@ const words = [
   { key: 'ABOUTME', label: 'ABOUT ME', path: '#about', start: [6, 0], delta: [0, 1] },
   { key: 'ARTICLES', label: 'ARTICLES', path: '#articles', start: [0, 7], delta: [1, 0] },
   { key: 'PICTURES', label: 'PICTURES', path: '#pictures', start: [0, 0], delta: [1, 1] },
+  { key: 'REVIEWS', label: 'REVIEWS', path: '#reviews', start: [7, 0], delta: [0, 1] },
 ];
 const size = 8;
 function makeGrid() {
@@ -60,7 +61,7 @@ function WordSearch() {
       const actual = value === match.key ? path : [...path].reverse();
       setFound(current => [...current, match.key]);
       setCircles(current => [...current, actual]);
-      if (found.length === 2) setMessage('All found. You know your way around!');
+      if (found.length === words.length - 1) setMessage('All found. You know your way around!');
     }
     setSelected([]); setAnchor(null);
   };
@@ -93,7 +94,7 @@ function WordSearch() {
   return <section className="puzzle-section" id="puzzle">
     <div className="contents-rail" aria-hidden="true"><span>CONTENTS</span><i>✦</i></div>
     <div className="puzzle-page">
-    <div className="puzzle-head"><p className="hand">A little play for curious minds</p><h2>Find your way<br />through the letters.</h2><p className="puzzle-intro">Drag across the grid to find three little corners of my world. Look across, down, or diagonally.</p><div className="progress"><span>{found.length}</span> / 3 WORDS FOUND <button onClick={reset} className="text-button">Start again ↺</button></div></div>
+    <div className="puzzle-head"><p className="hand">A little play for curious minds</p><h2>Find your way<br />through the letters.</h2><p className="puzzle-intro">Drag across the grid to find four little corners of my world. Look across, down, or diagonally.</p><div className="progress"><span>{found.length}</span> / {words.length} WORDS FOUND <button onClick={reset} className="text-button">Start again ↺</button></div></div>
     <svg className="margin-arrows" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true"><path d="M390 18 C340 8 320 20 304 49 M304 49 l13 -5 M304 49 l8 12"/><text x="350" y="13">graphic design, collected things</text><path d="M735 515 C780 495 805 500 830 527 M830 527 l-14 -2 M830 527 l-5 -13"/><text x="705" y="540">little moments, kept close</text></svg>
     <div className="puzzle-layout"><div className="board-wrap">
       <div className="board-frame"><div className="board" ref={boardRef} role="grid" aria-label="Word search puzzle">
@@ -106,14 +107,13 @@ function WordSearch() {
         }))}
         <svg className="circles" aria-hidden="true" viewBox={`0 0 ${boardRef.current?.clientWidth || 1} ${boardRef.current?.clientHeight || 1}`}>{circles.map(circleMarkup)}</svg>
       </div></div>
-    </div><aside className="word-card"><p className="annotation-title">Little things to find <span>✦</span></p><p className="annotation-copy">A few notes from my world. Find them in the grid, then follow the link.</p><ul>{words.map((word, i) => <li key={word.key}><span className="number">0{i + 1}</span><button className={`word-link${foundSet.has(word.key) ? ' done' : ''}`} disabled={!foundSet.has(word.key)} onClick={() => navigate(word.key)}><span>{word.label}</span><small>{foundSet.has(word.key) ? 'FOUND ↗' : 'HIDDEN'}</small></button><em>{['a little about me', 'stories & other thoughts', 'moments kept in frames'][i]}</em></li>)}</ul><p className="success" aria-live="polite">{message}</p></aside></div>
+    </div><aside className="word-card"><p className="annotation-title">Little things to find <span>✦</span></p><p className="annotation-copy">A few notes from my world. Find them in the grid, then follow the link.</p><ul>{words.map((word, i) => <li key={word.key}><span className="number">0{i + 1}</span><button className={`word-link${foundSet.has(word.key) ? ' done' : ''}`} disabled={!foundSet.has(word.key)} onClick={() => navigate(word.key)}><span>{word.label}</span><small>{foundSet.has(word.key) ? 'FOUND ↗' : 'HIDDEN'}</small></button><em>{['a little about me', 'stories & other thoughts', 'moments kept in frames', 'exhibition & fashion reviews'][i]}</em></li>)}</ul><p className="success" aria-live="polite">{message}</p></aside></div>
     </div>
   </section>;
 }
 
 const pageContent = {
   '#about': ['A little about me', 'Curious by nature. Collector of little details.', 'A scrapbook of the places, people, and ideas that have made their way into my work. This space is waiting for a few stories from me.'],
-  '#articles': ['Notes & articles', 'Thoughts, gathered along the way.', 'A small shelf of writing about making things, noticing things, and everything in between. New notes will find their way here soon.'],
 };
 function Subpage({ content }) {
   return <section className="subpage"><nav className="topbar"><a href="#home" className="micro">CREATIVE ARCHIVE · NO. 01</a><a className="monogram" href="#home">GV</a><a href="#home" className="micro underlined">BACK TO THE ARCHIVE ↗</a></nav><header className="subhead"><p className="hand">A page from my journal</p><h1>{content[0]}</h1><p>{content[1]}</p></header><div className="scrapbook"><div className="paper-photo photo p2"><img src="/hero-image.jpeg" alt="" /><span>AN UNFINISHED COLLECTION</span></div><article className="note"><span className="micro">A NOTE TO SELF</span><h2>{content[1]}</h2><p>{content[2]}</p><a className="back-link" href="#puzzle">← Back to the puzzle</a></article><div className="paper-photo photo p3"><img src="/hero-image.jpeg" alt="" /><span>KEPT WITH CARE</span></div></div></section>;
@@ -205,6 +205,13 @@ function ArticlesPage() {
     <footer className="journal-footer"><span>GV · PERSONAL ARCHIVE</span><span>NOTES, KEPT WITH CARE</span></footer>
   </main>;
 }
+function EmptyArticlesPage() {
+  return <main className="journal-page empty-articles-page">
+    <nav className="topbar"><a href="#home" className="micro">CREATIVE ARCHIVE · NO. 01</a><a className="monogram" href="#home">GV</a><a href="#home" className="micro underlined">BACK TO THE ARCHIVE ↗</a></nav>
+    <header className="journal-masthead"><p className="hand">A page from my journal</p><h1>Articles</h1><p className="journal-deck">This shelf is waiting for its first story.</p></header>
+    <div className="empty-articles-rule" aria-hidden="true"><span>✳</span></div>
+  </main>;
+}
 function ArticleDetail({ article }) {
   return <main className="journal-page article-page">
     <nav className="topbar"><a href="#home" className="micro">CREATIVE ARCHIVE · NO. 01</a><a className="monogram" href="#home">GV</a><a href="#articles" className="micro underlined">← ALL NOTES</a></nav>
@@ -292,7 +299,8 @@ function App() {
   useEffect(() => { const update = () => setHash(location.hash); window.addEventListener('hashchange', update); return () => window.removeEventListener('hashchange', update); }, []);
   if (hash === '#pictures') return <GalleryPage />;
   if (hash === '#about') return <AboutPage />;
-  if (hash === '#articles') return <ArticlesPage />;
+  if (hash === '#articles') return <EmptyArticlesPage />;
+  if (hash === '#reviews') return <ArticlesPage />;
   if (hash === '#article' || hash === '#article-reset') return <ArticleDetail article={journalArticles[0]} />;
   if (hash === '#article-apophenia') return <ArticleDetail article={journalArticles[1]} />;
   return pageContent[hash] ? <Subpage content={pageContent[hash]} /> : <><Hero /><WordSearch /></>;
